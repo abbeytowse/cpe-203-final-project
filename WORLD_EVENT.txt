@@ -1,0 +1,49 @@
+WORLD_EVENT 
+
+
+1. How to trigger the event. 
+Using your mouse, click on a space that is not currently occupied by an entity. 
+
+
+2. What should happen when the event is triggered. 
+An affected area's grass should darken becoming "swamp grass". 
+All the Tree entities in the affected area should turn into DeadTree entities. 
+All the Stump entities in the affected area should turn into Log entities. 
+All the House entities in the affected area should turn into Hut entities. 
+Any Dude entities in the area at the time of the click should turn into Villager entities.
+Two Villager entities will spawn on the map. 
+Two Witch entities will spawn on the map. 
+
+
+3. What the affected entities should do. 
+DeadTree entities are unable to be cut down by Dude entities. They now act as obstacles. 
+Log entities effectively maintain the same functionality as Stump entities, but fairies can't transform them back to trees.
+Hut entities turn DudeFull entities that visit it into Villager entities instead of DudeNotFull entities. 
+Villager entities' target is the House. When they reach a House Villager entities transform back into DudeNotFull entities. 
+
+
+4. What the new entity is and how it should behave. 
+The new entity is a Witch entity. 
+The Witch entity chases down Villager entities and turns them into Statue entities. 
+The Witch entity's movement is "teleportation." 
+The "teleportation" movement is decided by A*. If the path is long enough, the Witch moves to the 5th point in the path next.  
+Statue entities are unable to move. Fairy entities can transform Statue entities back into Villager entities. 
+
+
+5. The names of each partner and what each partner was responsible for. 
+
+Jack Rhines: 
+- Finding gifs, formatting them, and adding them to the code base. 
+- Affected area of the event (dimensions of the swamp).  
+- Transforming of Villagers into Statues 
+- Witch entity movement. 
+- Action/Animation period of Villager and Witch entities. 
+ 
+Abbey Towse 
+- DudeFull entities transforming into Villager entities when they reach the House. 
+- Spawning of the Villager and Witch entities. 
+- Transforming of Tree entities into DeadTree entities. 
+- Transforming of Stump entities into Log entities. 
+- Organizing the code base. 
+
+

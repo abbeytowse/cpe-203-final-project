@@ -1,0 +1,102 @@
+GENERAL CHANGE LOG (for my own benefit)
+
+1) moved all "transform" functions to Entity because they all had entity as their primary arguments
+        also moved static variables:
+            STUMP_KEY = "stump";
+            TREE_ANIMATION_MAX = 600;
+            TREE_ANIMATION_MIN = 50;
+            TREE_ACTION_MAX = 1400;
+            TREE_ACTION_MIN = 1000;
+            TREE_HEALTH_MAX = 3;
+            TREE_HEALTH_MIN = 1;
+
+
+2) execute*Action moved to Action ... based on arguments & amount of times action is referred to
+3) execute*Activity moved to Entity ... based on arguments & how many times action is referred to
+
+4) scheduleActions added to eventScheduler ... based on name & arguments
+    ... also considered entity because it is used by lots of methods in entity
+
+5) wanted to move executeAction to Action... based on name & arguments
+    ... but updateOnTime calls it, and doesn't have an action parameter
+    ...... therefore placed executeAction in eventScheduler
+
+6) considered moving updateOnTime to EventScheduler
+    ... would need to leave static because draw() calls on it but takes no parameters
+    ... only wanted to move it there because executeAction is there, and it calls executeAction
+    ...... there seems to be no benefit if i move it but leave it static
+
+7) moved getAnimationPeriod to Entity because its only argument was Entity
+
+8) moved scheduleEvent to EventScheduler based on name & arguments, and other functions that call upon it
+    ... also moved unscheduleAllEvents to EventScheduler .. same reasons / not sure where else you would put it??
+
+... just gonna take a look at methods i moved, and start moving functions they call on out of Functions
+
+9) i think moveTo* functions get placed in Event as static because they are specific actions take by entities,
+    but I have too much in entity
+
+10) nextPosition* gets put in Point, because they create a Point and use Point as arguments
+
+11) moved adjacent to Point because it relies solely on point arguments
+
+12) moved removedPendingEvent to scheduler because it took scheduler as its main argument & sounds like it fits there
+
+13) moved nextImage to Entity because that's the only argument it took
+
+14) getCurrentImage & getBackGroundImage moved to WorldModel...
+    drawEntities, drawViewport, drawBackground moved to WorldView ...
+
+15) added addEntity, tryAddEntity added to Entity because entity was the main argument, and it made more sense here
+    than in WorldModel
+
+16) moved updateOnTime to scheduler because that is the only class taken as an argument
+
+17) moved getImageList & loadImages to ImageStore because of the arguments & names
+
+18) moved shift to ViewPort & shiftView to WorldView based on the arguments
+
+19) moved load() into WorldModel because I feel like it makes sense there & it had the right arguments
+
+20) moved processLine() to WorldModel because of its arguments, load() calls on it, and it has properties in that class
+
+21) moving parse* into WorldModel as well, because it is called by processLine() and needs the same props/variables
+    ... also moved many static variables into WorldModel from Functions, but did not change to private yet
+
+22) moved withinBounds to WorldModel -- again, based on arguments & the methods that call upon it
+
+23) moved nearestEntity to Point -- arguments
+
+24) moved findNearest to WorldModel, but also considered Point -- neither seemed like a great spot based on code, but
+    I had placed similarly named functions in WorldModel
+
+25) moved removeEntityAt from Point to WorldModel .. could've gone either way, but I feel like it fit the "theme" more
+
+26) moved setBackground and setBackgroundCell into Background .. seems to fit well based off name / arguments
+
+27) moved getOccupant, getOccupancyCell, and setOccupancyCell to WorldModel because of arguments & because it
+    removed a lot of 'this' from method arguments ... not sure if you're even supposed to use them, but i dont like it
+    ... also moved getBackgroundCell here for similar reasons & because it didn't have a background object argument
+
+28) moved viewportToWorld and worldToViewport to Viewport ... for same reasons as always
+
+29) moved create* functions to Point ... seemingly the only argument that could be used in a class
+
+30) moved processImageLine, getImages, and setAlpha to ImageStore ... based on their names only -- seems to work
+
+31) moved PROPERTY_KEY to WorldModel ... only place it seems to be used
+
+32) moved getNumFromRange to Entity because it is only called upon there
+
+33) decided to move moveTo* functions from Event to WorldModel
+    ... didn't make sense in Event, and didn't make sense in entity to me because there's two entity types
+    ... left me to choose between WorldModel and EventScheduler ... took a shot with WorldModel & the program runs so
+
+... MOVED ALL FUNCTIONS OUT OF FUNCTIONS.JAVA ...
+
+... now need to work on making instance variables private ...
+
+33) created getActionKind() in Action
+34) created getBackgroundImages() and getImageIndex() in Background
+
+... created lots of getters/setters to make all instance variables private.
